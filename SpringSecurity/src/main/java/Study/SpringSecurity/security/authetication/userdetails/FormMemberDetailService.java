@@ -1,4 +1,4 @@
-package Study.SpringSecurity.security.userdetails;
+package Study.SpringSecurity.security.authetication.userdetails;
 
 import Study.SpringSecurity.domain.entity.Member;
 import Study.SpringSecurity.repository.MemberRepository;
@@ -31,7 +31,7 @@ public class FormMemberDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         //DB 연동하여 데이터 여부 확인
-        Member member = memberRepository.findByLoginId(username);
+        Member member = memberRepository.findByUsername(username);
 
         //데이터가 존재하지 않다면 에러 발생
         if (member == null) {

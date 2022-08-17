@@ -20,13 +20,13 @@ public class Member {
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    private String loginId;
+    private String username;
     private String password;
     private String age;
     private String role;
 
     public Member(MemberDto memberDto) {
-        this.loginId = memberDto.getLoginId();
+        this.username = memberDto.getUsername();
         this.password = memberDto.getPassword();
         this.age = memberDto.getAge();
         this.role = memberDto.getRole();

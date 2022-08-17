@@ -1,4 +1,4 @@
-package Study.SpringSecurity.security.userdetails;
+package Study.SpringSecurity.security.authetication.userdetails;
 
 import Study.SpringSecurity.domain.entity.Member;
 import lombok.Getter;
@@ -16,7 +16,7 @@ public class MemberContext extends User {
     private final Member member;
 
     public MemberContext(Member member, Collection<? extends GrantedAuthority> authorities) {
-        super(member.getLoginId(), member.getPassword(), authorities);
+        super(member.getUsername(), member.getPassword(), authorities);
         this.member = member;
     }
 }
