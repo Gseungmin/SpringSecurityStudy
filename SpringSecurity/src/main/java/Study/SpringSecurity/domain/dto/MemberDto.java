@@ -8,6 +8,6 @@ public class MemberDto {
 
     private String username;
     private String password;
-    private String age;
+    private String email;
     private String role;
 }

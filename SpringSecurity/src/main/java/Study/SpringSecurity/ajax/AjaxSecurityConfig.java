@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 //@Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 @RequiredArgsConstructor
 public class AjaxSecurityConfig {
 
@@ -24,7 +24,7 @@ public class AjaxSecurityConfig {
      * AjaxAuthenticationFilter 빈으로 등록
      * AjaxAuthenticationFilter가 처리할 AuthenticationManager 및 성공 실패 핸들러 등록
      */
-    @Bean
+//    @Bean
     public AjaxAuthenticationFilter ajaxAuthenticationFilter() throws Exception {
         AjaxAuthenticationFilter ajaxAuthenticationFilter = new AjaxAuthenticationFilter();
         ajaxAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
@@ -33,13 +33,13 @@ public class AjaxSecurityConfig {
     }
 
     //Ajax Provider 빈 객체 생성
-    @Bean
+//    @Bean
     public AjaxAuthenticationProvider ajaxAuthenticationProvider() {
         return new AjaxAuthenticationProvider(userDetailsService, passwordEncoder);
     }
 
 
-    @Bean
+//    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http

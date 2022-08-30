@@ -1,6 +1,7 @@
 package Study.SpringSecurity.config;
 
 import Study.SpringSecurity.security.authetication.handler.failure.FormAccessDeniedHandler;
+import Study.SpringSecurity.security.authetication.oauth.CustomOAuth2UserService;
 import Study.SpringSecurity.security.authetication.provider.FormAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -29,6 +30,7 @@ public class SecurityConfig {
     private final AuthenticationDetailsSource authenticationDetailsSource;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     /**
      * AuthenticationProvider Bean 등록
@@ -72,11 +74,10 @@ public class SecurityConfig {
      * */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         //인증 처리
         http
                 .authorizeRequests()
-                .antMatchers("/", "/users").permitAll()
+                .antMatchers("/", "/users", "/login").permitAll()
                 .antMatchers("/mypage").hasAnyRole("USER", "MANAGER", "ADMIN")
                 .antMatchers("/messages").hasAnyRole("MANAGER", "ADMIN")
                 .antMatchers("/config").hasRole("ADMIN")
@@ -90,12 +91,17 @@ public class SecurityConfig {
                 .failureHandler(authenticationFailureHandler)
                 .permitAll();
 
+        http
+                .oauth2Login()
+                .loginPage("/oauth")
+                .failureHandler(authenticationFailureHandler)
+                .userInfoEndpoint()
+                .userService(customOAuth2UserService);
+
         //인가 예외 처리
         http
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler());
         return http.build();
     }
-
-
 }
